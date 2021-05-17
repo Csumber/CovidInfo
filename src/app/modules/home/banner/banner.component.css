@@ -1,0 +1,38 @@
+@media only screen and (max-width: 839px) {
+  .container {
+    display: flex;
+    justify-content: flex-start;
+    background-image: url("src/assets/img/background/background_mobile.jpg");
+    background-size: cover;
+    background-position: right;
+    padding: 1vh;
+  }
+
+  .title {
+    z-index: 100;
+    color: white;
+    font-weight: bold;
+    font-size: 10vw;
+    line-height: normal;
+    text-decoration: none;
+  }
+}
+
+@media only screen and (min-width: 840px) {
+  .container {
+    display: flex;
+    justify-content: center;
+    background-image: url("src/assets/img/background/background_PC.jpg");
+    background-size: cover;
+    padding: 1vh;
+  }
+
+  .title {
+    z-index: 100;
+    color: white;
+    font-weight: bold;
+    font-size: 5vw;
+    line-height: normal;
+    text-decoration: none;
+  }
+}

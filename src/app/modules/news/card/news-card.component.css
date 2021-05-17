@@ -1,0 +1,60 @@
+.card-body {
+  height: 100%;
+  cursor: pointer;
+}
+
+.mat-card-content p.title {
+  font-size: xx-large;
+  font-weight: normal;
+  line-height: normal;
+}
+
+.mat-card-content p.description {
+  font-size: x-large;
+  font-weight: lighter;
+  line-height: normal;
+}
+
+.mat-card-content .mat-icon {
+  font-size: large;
+}
+
+.mat-card-actions p.date {
+  display: inline-table;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  font-size: large;
+  font-weight: normal;
+  line-height: normal;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+img:hover {
+  transform: scale(1.2);
+}
+
+@media only screen and (max-width: 839px) {
+  .img {
+    height: 40vh;
+    overflow: hidden;
+  }
+}
+
+@media only screen and (min-width: 840px) {
+  .card-body {
+    max-width: 350px;
+  }
+
+  .img {
+    height: 20vh;
+    overflow: hidden;
+  }
+}

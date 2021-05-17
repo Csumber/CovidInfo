@@ -1,0 +1,87 @@
+.root {
+  display: flex;
+  justify-content: center;
+  padding: 30px 30px 30px 30px;
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mat-card {
+  max-width: 1280px;
+  width: 100%;
+  padding: 30px 60px 30px 60px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.col {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.col:last-child {
+  margin-right: 0;
+}
+
+.container {
+  width: 400px;
+  max-width: 100%;
+  margin: 0 20px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.list {
+  border: solid 1px #ccc;
+  min-height: 60px;
+  background: white;
+  border-radius: 4px;
+  display: block;
+  overflow: hidden;
+}
+
+.list-item {
+  padding: 20px 10px;
+  border-bottom: solid 1px #ccc;
+  box-sizing: border-box;
+  cursor: move;
+  background: white;
+  color: black;
+  font-size: 14px;
+}
+
+.list-item:last-child {
+  border: none;
+}
+
+::ng-deep.hide-line .mat-form-field-underline {
+  display: none;
+}
+
+::ng-deep.hide-line .mat-form-field-label-wrapper,
+::ng-deep.hide-line .mat-form-field-label {
+  display: none;
+  padding: 0;
+  margin: 0;
+}
+
+::ng-deep .mat-checkbox.terms.ng-touched {
+  transition: ease 0.2s;
+}
+
+::ng-deep .mat-checkbox.terms.ng-touched.ng-invalid {
+  color: red;
+}

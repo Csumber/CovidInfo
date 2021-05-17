@@ -1,0 +1,28 @@
+<div class="root">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Frequently Asked Questions</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content *ngIf="loading" class="spinner">
+      <mat-spinner></mat-spinner>
+    </mat-card-content>
+    <mat-card-content *ngIf="!loading">
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let category of categories">
+          <mat-expansion-panel-header>
+            <mat-panel-title> {{category.category}} </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-accordion>
+            <mat-expansion-panel *ngFor="let question of category.questions">
+              <mat-expansion-panel-header>
+                <mat-panel-title> {{ question.header }} </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div [innerHTML]="question.content"></div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-card-content>
+  </mat-card>
+</div>

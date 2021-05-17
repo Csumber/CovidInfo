@@ -1,0 +1,58 @@
+<div class="root">
+  <mat-card>
+    <div class="header">
+      <p class="title">{{article?.title | isNullOrEmpty:"Could not load title..."}}</p>
+      <div class="subtitle">
+        <p>You can find the original article here:
+          <a href="{{article?.url | isNullOrEmpty:'/'}}" target="_blank">
+            {{article?.url |isNullOrEmpty:"Could not load URL"}}
+          </a>
+        </p>
+        <p>Author: {{article?.author|isNullOrEmpty:"Could not load author"}}</p>
+      </div>
+    </div>
+    <div class="img">
+      <img alt="Visual representation of card content"
+           src="{{article?.urlToImage | isNullOrEmpty:'assets/img/cards/card-placeholder.jpg' }}">
+    </div>
+    <br>
+    <div class="content">
+      <p>{{article?.content | isNullOrEmpty:"Could not load content"}} Lorem ipsum dolor sit amet, consectetur
+        adipisicing elit. Facere qui quisquam soluta. Accusamus aliquam hic soluta unde voluptatibus? Alias architecto
+        commodi consequatur debitis dignissimos dolore, eum excepturi facere inventore ipsam omnis perferendis
+        praesentium quae quas quis repudiandae sit tempore vel! Ab accusantium aperiam architecto autem consequuntur cum
+        cupiditate debitis delectus deleniti deserunt, ducimus eaque eius eum excepturi explicabo facere id illo illum
+        maxime nemo nesciunt nihil nisi obcaecati odio omnis perspiciatis porro provident, quasi qui quia quidem quo
+        quod quos repudiandae sapiente sint ut? Dolores facere fugiat inventore. Accusamus amet architecto culpa debitis
+        ipsum maiores molestiae mollitia placeat quibusdam quidem quis quod repellendus rerum, ullam vitae. Accusamus
+        adipisci alias consequuntur debitis dolor dolore dolorem, dolores doloribus ducimus earum est eum exercitationem
+        harum illo in maiores, minima minus nam neque nisi non nostrum odit officiis optio pariatur quaerat quasi
+        quibusdam soluta suscipit tempore totam vitae voluptas, voluptatibus. Ad alias aspernatur assumenda dicta
+        ducimus, facere facilis illum laudantium optio porro quas repudiandae rerum sit soluta suscipit temporibus,
+        vero. Deserunt ea enim explicabo fugit id magni modi ratione unde. Accusamus architecto, at consequuntur
+        cupiditate debitis dolore doloremque explicabo harum inventore nostrum perferendis possimus quisquam quo saepe
+        sed suscipit vitae? Blanditiis excepturi laudantium, magni provident repudiandae sequi vitae! Ab animi
+        architecto atque aut consequuntur cupiditate dignissimos doloribus et ex exercitationem explicabo iste laborum
+        libero minima mollitia, neque omnis quaerat quasi qui quia repellendus rerum tempore tenetur unde veniam,
+        voluptate voluptatem! Deleniti magnam nobis optio veniam? Ab aperiam deserunt distinctio dolore, earum et eum
+        harum ipsum iure iusto modi molestiae natus, placeat, provident sed temporibus voluptate. Ad, aliquam amet
+        aperiam atque, consequuntur debitis dolor eligendi eveniet hic iste laborum laudantium magni molestias nemo
+        nihil nulla provident quasi quo recusandae sapiente tempora tenetur unde voluptatem. Adipisci consectetur
+        facilis itaque labore natus soluta! Aliquam amet asperiores aut commodi, culpa cum earum eius eum harum ipsam,
+        iure maiores nemo non officiis, porro quia quo soluta sunt tempora voluptatibus. Eius laboriosam libero nostrum
+        optio? Molestiae, quae, vitae? Ad atque cum fuga fugit nemo numquam obcaecati possimus, qui quod, sed sit ut. Ab
+        architecto cupiditate, deleniti dolorum error eveniet explicabo minus modi mollitia obcaecati odit quod
+        reprehenderit sed similique voluptatibus. Architecto blanditiis commodi consectetur deserunt dicta distinctio
+        doloremque dolores dolorum eius, eligendi ex expedita explicabo in labore laboriosam molestias quia quisquam
+        quod rem, reprehenderit saepe temporibus totam ut vitae voluptate. A ab accusamus ad alias aliquam architecto,
+        aut commodi corporis cupiditate enim error, est inventore iste iusto labore minus nam, nisi porro provident quae
+        ratione reprehenderit rerum saepe soluta tempora voluptate voluptates! Aspernatur consectetur consequuntur cum
+        dolor doloremque excepturi, facere harum hic ipsam iure maxime nihil nisi non numquam officia quae quidem quis
+        rem sed temporibus. A, consectetur culpa dolore, dolores doloribus eius eligendi eum fugiat hic id illum ipsa
+        iure labore maiores nesciunt officia omnis optio quaerat quidem quos reprehenderit suscipit ut. Asperiores
+        deleniti deserunt dolor enim eveniet fuga fugiat id iste nam quas, quos ratione sequi. Accusantium culpa ea
+        earum, et placeat possimus quaerat quasi quia reprehenderit sequi?</p>
+    </div>
+  </mat-card>
+
+</div>

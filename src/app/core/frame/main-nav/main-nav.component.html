@@ -1,0 +1,83 @@
+<app-header>
+  <mat-toolbar-row *ngIf="screenSizeService.isTablet$ | async; else ToolbarMenu">
+    <button
+      (click)="drawer.toggle()"
+      mat-icon-button
+      type="button"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>Covid info - Demo</span>
+  </mat-toolbar-row>
+  <ng-template #ToolbarMenu>
+    <mat-toolbar-row class="header">
+      <div class="menus">
+        <a routerLink="/">Covid info - Demo</a>
+        <a
+          *ngFor="let route of routes"
+          mat-list-item
+          routerLink="{{ route.path }}"
+          routerLinkActive="active"
+        >{{ route.name }}</a>
+      </div>
+      <div class="options">
+        <button (click)="changeTheme()" mat-icon-button>
+          <mat-icon>{{darkTheme ? 'light_mode' : 'dark_mode' }}</mat-icon>
+        </button>
+        <button [matMenuTriggerFor]="options" mat-icon-button>
+          <mat-icon>account_circle</mat-icon>
+        </button>
+        <mat-menu #options="matMenu">
+          <button *ngIf="!isAuthenticated" mat-menu-item
+                  routerLink="/authentication"
+                  routerLinkActive="active">Login
+          </button>
+          <button (click)="onLogout()" *ngIf="isAuthenticated" mat-menu-item style="cursor: pointer">Logout</button>
+        </mat-menu>
+
+      </div>
+    </mat-toolbar-row>
+  </ng-template>
+</app-header>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    [attr.role]="(screenSizeService.isTablet$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(screenSizeService.isTablet$ | async) ? 'over' : 'side'"
+    [ngClass]="{ hidden: (screenSizeService.isTablet$ | async) === false }"
+    [opened]="(screenSizeService.isTablet$ | async) === false"
+    class="sidenav"
+    fixedInViewport
+  >
+    <mat-toolbar color="primary">Menu</mat-toolbar>
+
+    <mat-nav-list>
+      <div class="login">
+        <a *ngIf="!isAuthenticated" mat-list-item
+           routerLink="/authentication"
+           routerLinkActive="active"
+        >Login</a>
+        <a (click)="onLogout()" *ngIf="isAuthenticated" mat-list-item style="cursor: pointer">Logout</a>
+      </div>
+      <mat-divider></mat-divider>
+      <a
+        *ngFor="let route of routes"
+        mat-list-item
+        routerLink="{{ route.path }}"
+        routerLinkActive="active"
+      >{{ route.name }}</a
+      >
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="content">
+      <ng-content></ng-content>
+    </div>
+    <app-footer>
+      <p>Ambrus Török</p>
+      <p>2021</p>
+    </app-footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+

@@ -1,0 +1,71 @@
+<div class="root">
+  <div class="chartControl">
+    <form [formGroup]="queryForm">
+      <div class="row">
+        <div class="col">
+          <mat-form-field>
+            <mat-select formControlName="region" placeholder="Region">
+              <mat-option value="world">World</mat-option>
+              <mat-optgroup label="Countries">
+                <mat-option
+                  *ngFor="let country of countries"
+                  value="{{country.Slug}}"
+                >
+                  {{country.Country}}
+                </mat-option>
+              </mat-optgroup>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field>
+            <mat-select formControlName="interval" placeholder="Interval">
+              <mat-option value="7">Last 7 days</mat-option>
+              <mat-option value="14">Last 14 days</mat-option>
+              <mat-option value="30">Last 30 days</mat-option>
+              <mat-option value="custom">Custom interval</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div *ngIf="queryForm.value.interval === 'custom'" class="row">
+        <div class="col">
+          <mat-form-field>
+            <mat-label>Enter a date range</mat-label>
+            <mat-date-range-input [rangePicker]="picker" formGroupName="range">
+              <input formControlName="from" matStartDate placeholder="From">
+              <input formControlName="to" matEndDate placeholder="To">
+            </mat-date-range-input>
+            <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+            <mat-error *ngIf="queryForm.get('range.from')?.hasError('tooLittleDateError')">
+              Your starting date is too small
+            </mat-error>
+            <mat-error *ngIf="queryForm.get('range.to')?.hasError('tooLargeDateError')">
+              Your ending date is too large
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="chart">
+    <ngx-charts-line-chart
+      [autoScale]="true"
+      [legendPosition]="legendPosition"
+      [legend]="legend"
+      [results]="multi"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [timeline]="timeline"
+      [xAxisLabel]="xAxisLabel"
+      [xAxis]="xAxis"
+      [yAxisLabel]="yAxisLabel"
+      [yAxis]="yAxis"
+    >
+    </ngx-charts-line-chart>
+  </div>
+
+</div>

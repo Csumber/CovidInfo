@@ -1,0 +1,39 @@
+<div class="root">
+  <mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input #input (keyup)="applyFilter($event)" matInput placeholder="Enter a country">
+  </mat-form-field>
+
+  <mat-table [dataSource]="dataSource? dataSource: []" matSort>
+
+    <ng-container matColumnDef="countryName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Country</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.countryName}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="totalConfirmed">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Total confirmed</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.totalConfirmed | number}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="totalDeaths">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Total deaths</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.totalDeaths | number}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="totalRecovered">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Total recovered</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.totalRecovered | number}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="mortalityRate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Morality rate</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.mortalityRate | number}}%</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
+</div>
