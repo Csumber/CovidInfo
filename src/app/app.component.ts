@@ -5,6 +5,7 @@ import * as fromApp from './core/store/app.reducer';
 import * as AuthActions from './modules/authentication/store/auth.actions';
 import {ThemeService} from './core/frame/theme.service';
 import {Observable} from 'rxjs';
+import {AngularFirestore} from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-root',

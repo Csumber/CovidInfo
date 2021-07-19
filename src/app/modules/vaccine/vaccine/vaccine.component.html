@@ -148,8 +148,23 @@
     </mat-card-content>
 
     <mat-card-actions>
-      <button (click)="onSubmit()" [disabled]="!vaccineForm.valid" color="accent" mat-raised-button type="button">
+      <button
+        (click)="onSubmit()"
+        [disabled]="!vaccineForm.valid"
+        color="accent"
+        mat-raised-button
+        type="button"
+      >
         Register
+      </button>
+      <button
+        *ngIf="!!prefetchedData"
+        (click)="onDelete()"
+        color="warn"
+        mat-raised-button
+        type="button"
+      >
+        Delete response
       </button>
     </mat-card-actions>
   </mat-card>

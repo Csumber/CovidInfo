@@ -37,8 +37,10 @@ import {VaccineEffects} from './modules/vaccine/store/vaccine.effects';
 import {ReportingEffects} from './modules/reporting/store/reporting.effects';
 import {OverlayContainer} from '@angular/cdk/overlay';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
 
-import * as fromApp from './core/store/app.reducer';
+import * as FromApp from './core/store/app.reducer';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,8 @@ import * as fromApp from './core/store/app.reducer';
     HeaderComponent,
   ],
   imports: [
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -71,7 +75,7 @@ import * as fromApp from './core/store/app.reducer';
     ReactiveFormsModule,
     FormsModule,
     RouterModule,
-    StoreModule.forRoot(fromApp.appReducer),
+    StoreModule.forRoot(FromApp.appReducer),
     StoreRouterConnectingModule.forRoot(),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
   ],

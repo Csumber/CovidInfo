@@ -1,5 +1,15 @@
 export const environment = {
-  production: false,
+  production: true,
+  firebase: {
+    apiKey: 'AIzaSyDiC8wdluohmsCW-U2UMo2xshtIxaftHb8',
+    authDomain: 'nova-covid-19-demo.firebaseapp.com',
+    databaseURL: 'https://nova-covid-19-demo.firebaseio.com',
+    projectId: 'nova-covid-19-demo',
+    storageBucket: 'nova-covid-19-demo.appspot.com',
+    messagingSenderId: '981512092050',
+    // appId: '<your-app-id>',
+    // measurementId: '<your-measurement-id>'
+  },
   firebaseAPIKey: 'AIzaSyDiC8wdluohmsCW-U2UMo2xshtIxaftHb8',
   postFirebaseSignupURL: 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=',
   postFirebaseSignInURL: 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=',

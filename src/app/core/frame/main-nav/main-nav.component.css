@@ -11,6 +11,10 @@
   padding-top: 56px;
 }
 
+.mat-toolbar {
+  height: 56px;
+}
+
 .sidenav {
   width: 200px;
 }
@@ -33,7 +37,7 @@ mat-toolbar-row span {
 mat-toolbar-row .active {
   display: inline-block;
   margin: 0 10px;
-  color: lightgrey;
+  color: lightgray;
   text-decoration: none;
 }
 
@@ -53,5 +57,64 @@ app-footer p {
 .content {
   padding: 0;
   width: 100%;
-  min-height: calc(100vh - 2 * 56px);
+}
+
+@media only screen and (max-width: 839px) {
+  .content {
+    min-height: calc(100% - 1 * 64px);
+  }
+}
+
+@media only screen and (min-width: 840px) {
+  .content {
+    min-height: calc(100% - 1 * 56px);
+  }
+}
+
+.sidenavContent {
+  height: calc(100% - 56px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  z-index: 100;
+}
+
+@media only screen and (max-width: 839px) {
+  .footer-content {
+    flex: 1;
+    height: calc(2 * 56px);
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media only screen and (min-width: 840px) {
+  .footer-content {
+    flex: 1;
+    height: 56px;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .p-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .p-wrapper:first-child > p {
+    margin-right: auto;
+  }
+
+  .p-wrapper:last-child > p {
+    margin-left: auto;
+  }
+
 }

@@ -51,23 +51,31 @@
   >
     <mat-toolbar color="primary">Menu</mat-toolbar>
 
-    <mat-nav-list>
-      <div class="login">
-        <a *ngIf="!isAuthenticated" mat-list-item
-           routerLink="/authentication"
-           routerLinkActive="active"
-        >Login</a>
-        <a (click)="onLogout()" *ngIf="isAuthenticated" mat-list-item style="cursor: pointer">Logout</a>
-      </div>
-      <mat-divider></mat-divider>
-      <a
-        *ngFor="let route of routes"
-        mat-list-item
-        routerLink="{{ route.path }}"
-        routerLinkActive="active"
-      >{{ route.name }}</a
-      >
-    </mat-nav-list>
+   <div class="sidenavContent">
+      <mat-nav-list>
+        <div class="login">
+          <a *ngIf="!isAuthenticated" mat-list-item
+             routerLink="/authentication"
+             routerLinkActive="active"
+          >Login</a>
+          <a (click)="onLogout()" *ngIf="isAuthenticated" mat-list-item style="cursor: pointer">Logout</a>
+        </div>
+        <mat-divider></mat-divider>
+        <a
+          *ngFor="let route of routes"
+          mat-list-item
+          routerLink="{{ route.path }}"
+          routerLinkActive="active"
+        >{{ route.name }}</a
+        >
+      </mat-nav-list>
+      <mat-nav-list>
+        <mat-divider></mat-divider>
+        <a (click)="changeTheme()" mat-list-item>
+          <mat-icon> {{darkTheme ? 'light_mode' : 'dark_mode' }} </mat-icon>
+        </a>
+      </mat-nav-list>
+    </div>
   </mat-sidenav>
   <mat-sidenav-content>
     <div class="content">
@@ -79,5 +87,3 @@
     </app-footer>
   </mat-sidenav-content>
 </mat-sidenav-container>
-
-

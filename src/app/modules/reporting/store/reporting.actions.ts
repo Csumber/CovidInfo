@@ -1,5 +1,6 @@
 import {Action} from '@ngrx/store';
 import {ChartLine, MapDataEntry, TableCountry} from '../data/data.models';
+import {AppError} from '../../../shared/errors/app-error';
 
 export const FETCH_REPORT_CHART = '[REPORTING] Fetch Report Chart';
 export const SET_REPORT_CHART = '[REPORTING] Set Report Chart';
@@ -69,7 +70,7 @@ export class DitchReportMap implements Action {
 export class FailReport implements Action {
   readonly type = FAIL_REPORT;
 
-  constructor(public payload: string) {
+  constructor(public payload: AppError) {
   }
 }
 

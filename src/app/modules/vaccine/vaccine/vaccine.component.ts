@@ -1,13 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, ValidationErrors, Validators,} from '@angular/forms';
+import {AbstractControl, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {VaccineFormModel} from '../vaccineFormModel';
 import {Subscription} from 'rxjs';
-
-import * as fromApp from '../../../core/store/app.reducer';
-import * as vaccineActions from '../store/vaccine.actions';
 import {AlertComponent} from 'src/app/shared/alert/alert.component';
 import {MatDialog} from '@angular/material/dialog';
+
+import * as FromApp from '../../../core/store/app.reducer';
+import * as VaccineActions from '../store/vaccine.actions';
 
 @Component({
   selector: 'app-vaccine',
@@ -15,12 +15,13 @@ import {MatDialog} from '@angular/material/dialog';
   styleUrls: ['./vaccine.component.css'],
 })
 export class VaccineComponent implements OnInit, OnDestroy {
-  public prefetchedData: VaccineFormModel | null = null;
+
+  public readonly vaccinesMinimumNumber = 3;
+
   public authSub: Subscription | null = null;
   public vaccineSub: Subscription | null = null;
-  vaccinesMinimumNumber = 3;
-  vaccineForm: FormGroup = new FormGroup({});
-  vaccineOptions = [
+
+  public vaccineOptions = [
     'AstraZeneca',
     'BioNTech',
     'Johnson & Johnson',
@@ -29,13 +30,17 @@ export class VaccineComponent implements OnInit, OnDestroy {
     'Sinopharm',
     'Sputnik V',
   ];
+
+  public vaccineForm: FormGroup = new FormGroup({});
+  public prefetchedData: VaccineFormModel | null = null;
+
   private email = '';
   private uid = '';
   private error = false;
 
   constructor(
-    private store: Store<fromApp.AppState>,
-    public dialog: MatDialog
+    private store: Store<FromApp.AppState>,
+    public dialog: MatDialog,
   ) {
   }
 
@@ -44,19 +49,24 @@ export class VaccineComponent implements OnInit, OnDestroy {
       this.email = authData.user?.email ? authData.user?.email : '';
       this.uid = authData.user?.id ? authData.user?.id : '';
     });
-    this.store.dispatch(new vaccineActions.FetchVaccineForm(this.uid));
-    this.vaccineSub = this.store.select('vaccine').subscribe((s) => {
-      if (!s.loading && s.formData) {
-        this.prefetchedData = s.formData;
-        this.setFormData();
-      }
 
+    this.resetFormData();
+    this.store.dispatch(new VaccineActions.FetchVaccineForm(this.uid));
+
+    this.vaccineSub = this.store.select('vaccine').subscribe((s) => {
+      if (!s.loading) {
+        this.prefetchedData = s.formData;
+        if (!!this.prefetchedData) {
+          this.setFormData();
+        } else {
+          this.resetFormData();
+        }
+      }
       this.error = s.formError;
       if (this.error) {
         this.showErrorAlert();
       }
     });
-    this.resetFormData();
   }
 
   ngOnDestroy(): void {
@@ -140,6 +150,7 @@ export class VaccineComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     const vaccineFormModel = new VaccineFormModel(
+      this.uid,
       this.vaccineForm.value.birthday,
       this.email,
       this.vaccineForm.value.gender,
@@ -149,13 +160,16 @@ export class VaccineComponent implements OnInit, OnDestroy {
       this.vaccineForm.value.symptoms,
       this.vaccineForm.value.terms,
       this.vaccineForm.value.vaccines,
-      this.uid
     );
 
-    this.store.dispatch(new vaccineActions.StoreVaccineForm(vaccineFormModel));
-    this.store.dispatch(new vaccineActions.FetchVaccineForm(this.uid));
-    this.store.dispatch(new vaccineActions.SetVaccineForm(vaccineFormModel));
+    this.store.dispatch(new VaccineActions.StoreVaccineForm(vaccineFormModel));
+    this.store.dispatch(new VaccineActions.FetchVaccineForm(this.uid));
+    this.store.dispatch(new VaccineActions.SetVaccineForm(vaccineFormModel));
 
+  }
+
+  onDelete(): void {
+    this.store.dispatch(new VaccineActions.DeleteVaccineForm(this.uid));
   }
 
   private showErrorAlert(): void {
@@ -179,22 +193,5 @@ export function createVaccineMinimumValidator(
     };
 
     return control.value?.length < +minValue ? err : null;
-  };
-}
-
-export function createVaccineMaximumValidator(
-  maxValue: number
-): (control: AbstractControl) => ValidationErrors | null {
-  return function validateMaximumVaccines(
-    control: AbstractControl
-  ): { [key: string]: any } | null {
-    const err = {
-      tooManyVaccinesError: {
-        given: control.value?.length,
-        max: maxValue,
-      },
-    };
-
-    return control.value?.length > +maxValue ? err : null;
   };
 }

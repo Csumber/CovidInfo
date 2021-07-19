@@ -1,6 +1,10 @@
 import {ChartLine, MapDataEntry, TableCountry} from '../data/data.models';
 
 import * as ReportingActions from './reporting.actions';
+import {FetchDataError} from '../../../shared/errors/fetch-data-error';
+import {NoDataAvailableError} from '../../../shared/errors/no-data-available-error';
+import {BadRequestError} from '../../../shared/errors/bad-request-error';
+import {NotFoundError} from '../../../shared/errors/not-found-error';
 
 export interface State {
   dataChart: ChartLine[];
@@ -97,12 +101,25 @@ export function ReportingReducer(
         error: null,
       };
     case ReportingActions.FAIL_REPORT:
+      let errorMessage = 'An error occurred';
+      if (action.payload instanceof FetchDataError) {
+        errorMessage = 'Could not fetch data.';
+      }
+      if (action.payload instanceof NoDataAvailableError) {
+        errorMessage = 'No data available with the given parameters.';
+      }
+      if (action.payload instanceof BadRequestError) {
+        errorMessage = 'Bad request error.';
+      }
+      if (action.payload instanceof NotFoundError) {
+        errorMessage = 'Resource not found.';
+      }
       return {
         ...state,
         dataChart: [],
         dataTable: [],
         dataMap: [],
-        error: action.payload,
+        error: errorMessage,
         loadingChart: false,
         loadingTable: false,
         loadingMap: false,

@@ -1,15 +1,18 @@
-import {HttpClient, HttpErrorResponse, HttpParams,} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse,} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {catchError, map, switchMap, take, withLatestFrom} from 'rxjs/operators';
-import {environment} from '../../../../environments/environment';
 import {Store} from '@ngrx/store';
-import {VaccineFormModel, VaccineFormModelRaw} from '../vaccineFormModel';
-import {of} from 'rxjs';
+import {of, throwError} from 'rxjs';
 
 import * as vaccineActions from './vaccine.actions';
 import * as fromApp from '../../../core/store/app.reducer';
+import {AngularFirestore} from '@angular/fire/firestore';
+import {fromPromise} from 'rxjs/internal-compatibility';
+import firebase from 'firebase';
+import {VaccineFormModel} from '../vaccineFormModel';
+import Item = firebase.analytics.Item;
 
 const handleError = (errorResponse: HttpErrorResponse) => {
   return of(new vaccineActions.FailVaccineForm());
@@ -22,41 +25,37 @@ export class VaccineEffects {
       ofType(vaccineActions.FETCH_VACCINE_FORM),
       withLatestFrom(this.store.select('vaccine')),
       switchMap(([actionData, state]) => {
-        const uid = (actionData as vaccineActions.FetchVaccineForm).payload;
-        const params: HttpParams = new HttpParams()
-          .append('orderBy', '"uid"')
-          .append('limitToFirst', '1')
-          .append('equalTo', '"' + uid + '"');
-        return this.http.get<VaccineFormModelRaw>(
-          environment.firebaseVaccineURL,
-          {params}
-        );
+
+        const uid = (actionData as vaccineActions.StoreVaccineForm).payload;
+
+        return this.firestore.doc<VaccineFormModel>('vaccines/' + uid).valueChanges();
       }),
-      map((vaccineFormModelRaw: VaccineFormModelRaw) => {
-        return new vaccineActions.SetVaccineForm(
-          this.convertFromRaw(vaccineFormModelRaw)
-        );
+      map((response: VaccineFormModel | undefined) => {
+        if (!response) {
+          throwError('Nicht gefunden');
+          return new vaccineActions.SetVaccineForm(null);
+        }
+        return new vaccineActions.SetVaccineForm(response);
       }),
       catchError((errorResponse) => {
         return handleError(errorResponse);
       })
     );
   });
+
   storeVaccineForm = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(vaccineActions.STORE_VACCINE_FORM),
         withLatestFrom(this.store.select('vaccine')),
         switchMap(([actionData, state]) => {
-          return this.http.post<VaccineFormModelRaw>(
-            environment.firebaseVaccineURL,
-            (actionData as vaccineActions.StoreVaccineForm).payload
-          );
-        }),
-        map((vaccineFormModelRaw: VaccineFormModelRaw) => {
-          return new vaccineActions.SetVaccineForm(
-            this.convertFromRaw(vaccineFormModelRaw)
-          );
+          const uid = (actionData as vaccineActions.StoreVaccineForm).payload.uid;
+          const formData = (actionData as vaccineActions.StoreVaccineForm).payload;
+
+          return this.firestore
+            .collection('vaccines')
+            .doc(uid)
+            .set((JSON.parse(JSON.stringify(formData))));
         }),
         catchError((errorResponse) => {
           return handleError(errorResponse);
@@ -66,45 +65,31 @@ export class VaccineEffects {
     {dispatch: false}
   );
 
+  deleteFormData = createEffect(() => {
+      return this.actions$.pipe(
+        ofType(vaccineActions.DELETE_VACCINE_FORM),
+        withLatestFrom(this.store.select('vaccine')),
+        switchMap(([actionData, state]) => {
+          const uid = (actionData as vaccineActions.FetchVaccineForm).payload;
+
+          return fromPromise(this.firestore.doc<Item>('vaccines/' + uid).delete());
+        }),
+        map(response => {
+          return new vaccineActions.SetVaccineForm(null);
+        }),
+        catchError((errorResponse) => {
+          return handleError(errorResponse);
+        })
+      );
+    },
+  );
+
   constructor(
     private actions$: Actions,
     private http: HttpClient,
-    private store: Store<fromApp.AppState>
+    private store: Store<fromApp.AppState>,
+    private firestore: AngularFirestore,
   ) {
-  }
-
-  private convertFromRaw(
-    vaccineFormModelRaw: VaccineFormModelRaw
-  ): VaccineFormModel | null {
-    if (vaccineFormModelRaw) {
-      const key: string = Object.keys(vaccineFormModelRaw)[0].toString();
-      const birthday = new Date(Date.parse(vaccineFormModelRaw[key].birthday));
-      const email = vaccineFormModelRaw[key].email;
-      const gender = vaccineFormModelRaw[key].gender;
-      const name = vaccineFormModelRaw[key].name;
-      const phone = vaccineFormModelRaw[key].phone;
-      const socialSecurityNumber =
-        vaccineFormModelRaw[key].socialSecurityNumber;
-      const symptoms = vaccineFormModelRaw[key].symptoms;
-      const terms = vaccineFormModelRaw[key].terms;
-      const vaccines = vaccineFormModelRaw[key].vaccines;
-      const uid = vaccineFormModelRaw[key].uid;
-
-      const vaccineFormModel = new VaccineFormModel(
-        birthday,
-        email,
-        gender,
-        name,
-        phone,
-        socialSecurityNumber,
-        symptoms,
-        terms,
-        vaccines,
-        uid
-      );
-      return vaccineFormModel;
-    }
-    return null;
   }
 
   private getUserId(): string {

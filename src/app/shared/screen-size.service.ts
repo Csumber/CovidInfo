@@ -8,7 +8,7 @@ export class ScreenSizeService {
 
   // 839 and 840
   isTablet$: Observable<boolean> = this.breakpointObserver
-    .observe([Breakpoints.Handset, Breakpoints.Tablet])
+  .observe(['(max-width: 840px)'])
     .pipe(
       map((result) => result.matches),
       shareReplay()

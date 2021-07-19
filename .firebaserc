@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "learn-angular-6532b": {
+      "hosting": {
+        "atorok-demo-project": [
+          "learn-angular-6532b"
+        ]
+      }
+    }
+  }
+}

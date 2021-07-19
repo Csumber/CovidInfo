@@ -1,4 +1,4 @@
-<div class="root">
+<div class="root" [ngClass]="{'disabled':disabled}">
   <div class="options">
     <h4>{{optionsName}}</h4>
 
@@ -10,7 +10,6 @@
 
   <div class="selected">
     <h4>{{selectedName}}</h4>
-
     <div #doneList="cdkDropList" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="todoList"
          [cdkDropListData]="selected" cdkDropList class="list">
       <div *ngFor="let item of selected" [cdkDragDisabled]="disabled" cdkDrag class="list-item">{{item}} </div>

@@ -27,8 +27,16 @@ export function vaccineReducer(
       };
 
     case VaccineActions.SET_VACCINE_FORM:
-      if (!action.payload) {
+      if (action.payload === undefined) {
         return state;
+      }
+      if (action.payload === null) {
+        return {
+          ...state,
+          formData: null,
+          loading: false,
+          formError: false,
+        };
       }
       return {
         ...state,

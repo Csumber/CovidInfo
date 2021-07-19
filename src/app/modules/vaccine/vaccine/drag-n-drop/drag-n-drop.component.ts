@@ -23,9 +23,9 @@ export class DragNDropComponent implements ControlValueAccessor, MatFormFieldCon
   focused = false;
   controlType = 'app-drag-n-drop';
   id = `app-drag-n-drop-${DragNDropComponent.nextId++}`;
-  @Input() optionsName = 'Options';
-  @Input() selectedName = 'Selected';
-  @Input() options: string[] = [];
+  @Input('optionsName') optionsName = 'Options';
+  @Input('selectedName') selectedName = 'Selected';
+  @Input('options') options: string[] = [];
   selected: string[] = [];
   private thePlaceholder = '';
   private isRequired = false;
@@ -47,9 +47,7 @@ export class DragNDropComponent implements ControlValueAccessor, MatFormFieldCon
       this.focused = !!origin;
       this.stateChanges.next();
     });
-
     this.ngControl.valueAccessor = this;
-
   }
 
   get empty(): boolean {
