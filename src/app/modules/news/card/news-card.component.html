@@ -1,25 +1,30 @@
-<mat-card class="card-body" routerLink="{{data.title}}">
+<mat-card class="card-body" routerLink="{{ data.title }}">
   <div class="img-frame">
     <div class="img">
-      <img alt="Visual representation of card content"
-           src="{{data.urlToImage | isNullOrEmpty:'assets/img/cards/card-placeholder.jpg' }}">
+      <img
+        alt="Visual representation of card content"
+        src="{{
+          data.urlToImage
+            | isNullOrEmpty: 'assets/img/cards/card-placeholder.jpg'
+        }}"
+      />
     </div>
   </div>
-  <br>
+  <br />
   <mat-card-content>
     <p class="title">
-      {{data.title | trim:55 }}
+      {{ data.title | trim: 55 }}
     </p>
-    <br>
+    <br />
     <p class="description">
-      {{data.content | trim:65 }}
+      {{ data.content | trim: 65 }}
       <mat-icon color="accent">arrow_forward_ios</mat-icon>
     </p>
   </mat-card-content>
-  <br>
+  <br />
   <mat-card-actions>
     <p class="date">
-      {{data.publishedAt | date:'medium'}}
+      {{ data.publishedAt | date: "medium" }}
     </p>
   </mat-card-actions>
 </mat-card>

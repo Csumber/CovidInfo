@@ -1,16 +1,16 @@
-import {User} from '../user.model';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import { User } from '../user.model';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import * as AuthActions from './auth.actions';
-import {AuthenticateFail} from './auth.actions';
-import {of} from 'rxjs';
-import {Injectable} from '@angular/core';
-import {Location} from '@angular/common';
+import { AuthenticateFail } from './auth.actions';
+import { of } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Location } from '@angular/common';
 
-import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {ActivatedRoute, Router} from '@angular/router';
-import {catchError, map, switchMap, tap} from 'rxjs/operators';
-import {environment} from '../../../../environments/environment';
-import {AuthenticationService} from '../authentication.service';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { ActivatedRoute, Router } from '@angular/router';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
+import { AuthenticationService } from '../authentication.service';
 
 export interface AuthResponseData {
   idToken: string;
@@ -29,12 +29,17 @@ const handleAuthentication = (
 ) => {
   const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
   const user = new User(email, userId, token, expirationDate);
-  localStorage.setItem('userData', JSON.stringify((user)));
-  return new AuthActions.AuthenticateSuccess({email, userId, token, expirationDate, redirect: true});
+  localStorage.setItem('userData', JSON.stringify(user));
+  return new AuthActions.AuthenticateSuccess({
+    email,
+    userId,
+    token,
+    expirationDate,
+    redirect: true,
+  });
 };
 
-const handleError = (errorResponse: HttpErrorResponse
-) => {
+const handleError = (errorResponse: HttpErrorResponse) => {
   let errorMessage = 'An error has occured!';
   if (!errorResponse.error || !errorResponse.error.error) {
     return of(new AuthenticateFail(errorMessage));
@@ -57,7 +62,6 @@ const handleError = (errorResponse: HttpErrorResponse
 
 @Injectable()
 export class AuthEffects {
-
   // logAction = createEffect(() => {
   //   return this.actions$.pipe(
   //     tap((action: Action) => {
@@ -70,20 +74,21 @@ export class AuthEffects {
     return this.actions$.pipe(
       ofType(AuthActions.SIGNUP_START),
       switchMap((signupAction: AuthActions.SignupStart) => {
-        return this.http.post<AuthResponseData>(
-          environment.postFirebaseSignupURL + environment.firebaseAPIKey,
-          {
-            email: signupAction.payload.email,
-            password: signupAction.payload.password,
-            returnSecureToken: true
-          }
-        )
+        return this.http
+          .post<AuthResponseData>(
+            environment.postFirebaseSignupURL + environment.firebaseAPIKey,
+            {
+              email: signupAction.payload.email,
+              password: signupAction.payload.password,
+              returnSecureToken: true,
+            }
+          )
           .pipe(
-            tap(
-              (responseData: AuthResponseData) => {
-                this.authenticationService.setLogoutTimer(+responseData.expiresIn * 1000);
-              }
-            ),
+            tap((responseData: AuthResponseData) => {
+              this.authenticationService.setLogoutTimer(
+                +responseData.expiresIn * 1000
+              );
+            }),
             map((responseData: AuthResponseData) => {
               return handleAuthentication(
                 responseData.email,
@@ -104,20 +109,21 @@ export class AuthEffects {
     return this.actions$.pipe(
       ofType(AuthActions.LOGIN_START),
       switchMap((signupAction: AuthActions.LoginStart) => {
-        return this.http.post<AuthResponseData>(
-          environment.postFirebaseSignInURL + environment.firebaseAPIKey,
-          {
-            email: signupAction.payload.email,
-            password: signupAction.payload.password,
-            returnSecureToken: true
-          }
-        )
+        return this.http
+          .post<AuthResponseData>(
+            environment.postFirebaseSignInURL + environment.firebaseAPIKey,
+            {
+              email: signupAction.payload.email,
+              password: signupAction.payload.password,
+              returnSecureToken: true,
+            }
+          )
           .pipe(
-            tap(
-              (responseData: AuthResponseData) => {
-                this.authenticationService.setLogoutTimer(+responseData.expiresIn * 1000);
-              }
-            ),
+            tap((responseData: AuthResponseData) => {
+              this.authenticationService.setLogoutTimer(
+                +responseData.expiresIn * 1000
+              );
+            }),
             map((responseData: AuthResponseData) => {
               return handleAuthentication(
                 responseData.email,
@@ -145,7 +151,7 @@ export class AuthEffects {
           tokenExpirationDate: Date;
         } = JSON.parse(localStorage.getItem('userData') as string);
         if (!userData) {
-          return {type: 'DUMMY'};
+          return { type: 'DUMMY' };
         }
 
         const loadedUser = new User(
@@ -169,37 +175,44 @@ export class AuthEffects {
             redirect: false,
           });
         }
-        return {type: 'DUMMY'};
+        return { type: 'DUMMY' };
       })
     );
   });
 
-  authRedirect = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(AuthActions.AUTHENTICATE_SUCCESS),
-      tap((authSuccessAction: AuthActions.AuthenticateSuccess) => {
-        if (authSuccessAction.payload.redirect) {
-          const redirectTo = this.route.snapshot.queryParamMap.get('redirectTo');
-          if (redirectTo) {
-            this.router.navigate([redirectTo]);
-          } else {
-            this.location.back();
+  authRedirect = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(AuthActions.AUTHENTICATE_SUCCESS),
+        tap((authSuccessAction: AuthActions.AuthenticateSuccess) => {
+          if (authSuccessAction.payload.redirect) {
+            const redirectTo =
+              this.route.snapshot.queryParamMap.get('redirectTo');
+            if (redirectTo) {
+              this.router.navigate([redirectTo]);
+            } else {
+              this.location.back();
+            }
           }
-        }
-      })
-    );
-  }, {dispatch: false});
+        })
+      );
+    },
+    { dispatch: false }
+  );
 
-  authLogout = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(AuthActions.LOGOUT),
-      tap(() => {
-        this.authenticationService.clearLogoutTime();
-        localStorage.removeItem('userData');
-        this.router.navigate(['..']);
-      })
-    );
-  }, {dispatch: false});
+  authLogout = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(AuthActions.LOGOUT),
+        tap(() => {
+          this.authenticationService.clearLogoutTime();
+          localStorage.removeItem('userData');
+          this.router.navigate(['..']);
+        })
+      );
+    },
+    { dispatch: false }
+  );
 
   constructor(
     private actions$: Actions,
@@ -207,8 +220,6 @@ export class AuthEffects {
     private router: Router,
     private authenticationService: AuthenticationService,
     private route: ActivatedRoute,
-    private location: Location,
-  ) {
-  }
-
+    private location: Location
+  ) {}
 }

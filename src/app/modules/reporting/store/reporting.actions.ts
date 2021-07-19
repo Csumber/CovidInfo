@@ -1,6 +1,6 @@
-import {Action} from '@ngrx/store';
-import {ChartLine, MapDataEntry, TableCountry} from '../data/data.models';
-import {AppError} from '../../../shared/errors/app-error';
+import { Action } from '@ngrx/store';
+import { ChartLine, MapDataEntry, TableCountry } from '../data/data.models';
+import { AppError } from '../../../shared/errors/app-error';
 
 export const FETCH_REPORT_CHART = '[REPORTING] Fetch Report Chart';
 export const SET_REPORT_CHART = '[REPORTING] Set Report Chart';
@@ -22,15 +22,13 @@ export interface QueryData {
 export class FetchReportChart implements Action {
   readonly type = FETCH_REPORT_CHART;
 
-  constructor(public payload: QueryData) {
-  }
+  constructor(public payload: QueryData) {}
 }
 
 export class SetReportChart implements Action {
   readonly type = SET_REPORT_CHART;
 
-  constructor(public payload: ChartLine[]) {
-  }
+  constructor(public payload: ChartLine[]) {}
 }
 
 export class DitchReportChart implements Action {
@@ -44,8 +42,7 @@ export class FetchReportTable implements Action {
 export class SetReportTable implements Action {
   readonly type = SET_REPORT_TABLE;
 
-  constructor(public payload: TableCountry[]) {
-  }
+  constructor(public payload: TableCountry[]) {}
 }
 
 export class DitchReportTable implements Action {
@@ -59,8 +56,7 @@ export class FetchReportMap implements Action {
 export class SetReportMap implements Action {
   readonly type = SET_REPORT_MAP;
 
-  constructor(public payload: MapDataEntry[]) {
-  }
+  constructor(public payload: MapDataEntry[]) {}
 }
 
 export class DitchReportMap implements Action {
@@ -70,8 +66,7 @@ export class DitchReportMap implements Action {
 export class FailReport implements Action {
   readonly type = FAIL_REPORT;
 
-  constructor(public payload: AppError) {
-  }
+  constructor(public payload: AppError) {}
 }
 
 export type ReportingActions =

@@ -1,8 +1,12 @@
-import {Actions, createEffect, ofType} from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as ReportingActions from './reporting.actions';
-import {FetchReportChart, QueryData} from './reporting.actions';
-import {HttpClient, HttpErrorResponse, HttpParams,} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import { FetchReportChart, QueryData } from './reporting.actions';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams,
+} from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import {
   ChartCountryResponse,
   ChartEntry,
@@ -11,19 +15,19 @@ import {
   CountriesSummarizedTableResponse,
   MapDataEntry,
   MapResponse,
-  TableCountry
+  TableCountry,
 } from '../data/data.models';
-import {Observable, of, throwError} from 'rxjs';
-import {Router} from '@angular/router';
-import {Store} from '@ngrx/store';
-import {catchError, map, switchMap, withLatestFrom} from 'rxjs/operators';
-import {environment} from '../../../../environments/environment';
+import { Observable, of, throwError } from 'rxjs';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
 import * as FromApp from '../../../core/store/app.reducer';
-import {FetchDataError} from '../../../shared/errors/fetch-data-error';
-import {NoDataAvailableError} from '../../../shared/errors/no-data-available-error';
-import {AppError} from '../../../shared/errors/app-error';
-import {BadRequestError} from '../../../shared/errors/bad-request-error';
-import {NotFoundError} from '../../../shared/errors/not-found-error';
+import { FetchDataError } from '../../../shared/errors/fetch-data-error';
+import { NoDataAvailableError } from '../../../shared/errors/no-data-available-error';
+import { AppError } from '../../../shared/errors/app-error';
+import { BadRequestError } from '../../../shared/errors/bad-request-error';
+import { NotFoundError } from '../../../shared/errors/not-found-error';
 
 const handleError = (errorResponse: HttpErrorResponse) => {
   let errorMessage = 'An unknown error occurred!';
@@ -38,7 +42,7 @@ const handleError = (errorResponse: HttpErrorResponse) => {
       errorMessage = 'We could not find any data with the given parameters.';
       break;
   }
-  return of(new ReportingActions.FailReport(new AppError((errorResponse))));
+  return of(new ReportingActions.FailReport(new AppError(errorResponse)));
 };
 
 const checkErrorCode = (error: any) => {
@@ -128,8 +132,7 @@ export class ReportingEffects {
     private http: HttpClient,
     private router: Router,
     private store: Store<FromApp.AppState>
-  ) {
-  }
+  ) {}
 
   private static convertDateYYYYMMDD(
     rawDate: Date,
@@ -174,9 +177,9 @@ export class ReportingEffects {
           name: date,
           value: r.Confirmed - r.Recovered - r.Deaths,
         });
-        confirmed.push({name: date, value: r.Confirmed});
-        deaths.push({name: date, value: r.Deaths});
-        recovered.push({name: date, value: r.Recovered});
+        confirmed.push({ name: date, value: r.Confirmed });
+        deaths.push({ name: date, value: r.Deaths });
+        recovered.push({ name: date, value: r.Recovered });
       }
     }
     data.push({
@@ -220,9 +223,9 @@ export class ReportingEffects {
         name: date,
         value: r.TotalConfirmed - r.TotalRecovered - r.TotalDeaths,
       });
-      confirmed.push({name: date, value: r.TotalConfirmed});
-      deaths.push({name: date, value: r.TotalDeaths});
-      recovered.push({name: date, value: r.TotalRecovered});
+      confirmed.push({ name: date, value: r.TotalConfirmed });
+      deaths.push({ name: date, value: r.TotalDeaths });
+      recovered.push({ name: date, value: r.TotalRecovered });
     }
     data.push({
       name: 'Total confirmed',
@@ -287,36 +290,35 @@ export class ReportingEffects {
         ReportingEffects.convertDateYYYYMMDD(queryData.to, true, true, true)
       );
     if (queryData.region === 'world') {
-      return this.http.get<ChartWorldResponse[]>(
-        environment.CovidAPIURL + `/world`,
-        {params}
-      ).pipe(
-        catchError(checkErrorCode)
-      );
+      return this.http
+        .get<ChartWorldResponse[]>(environment.CovidAPIURL + `/world`, {
+          params,
+        })
+        .pipe(catchError(checkErrorCode));
     }
-    return this.http.get<ChartCountryResponse[]>(
-      environment.CovidAPIURL + `/country/${queryData.region}`,
-      {params}
-    ).pipe(
-      catchError(checkErrorCode)
-    );
+    return this.http
+      .get<ChartCountryResponse[]>(
+        environment.CovidAPIURL + `/country/${queryData.region}`,
+        { params }
+      )
+      .pipe(catchError(checkErrorCode));
   }
 
   private fetchTableFromAPI(): Observable<CountriesSummarizedTableResponse> {
-    return this.http.get<CountriesSummarizedTableResponse>(
-      environment.CovidAPIURL + `/summary`
-    ).pipe(
-      catchError(checkErrorCode)
-    );
+    return this.http
+      .get<CountriesSummarizedTableResponse>(
+        environment.CovidAPIURL + `/summary`
+      )
+      .pipe(catchError(checkErrorCode));
   }
 
   private fetchMapFromAPI(): Observable<MapResponse[]> {
     const yesterday = new Date(new Date().valueOf() - 24 * 60 * 60 * 1000);
-    return this.http.get<MapResponse[]>(
-      environment.CovidAPIURLMAPDAILY +
-      `/${ReportingEffects.convertDateMMDDYYY(yesterday)}`
-    ).pipe(
-      catchError(checkErrorCode)
-    );
+    return this.http
+      .get<MapResponse[]>(
+        environment.CovidAPIURLMAPDAILY +
+          `/${ReportingEffects.convertDateMMDDYYY(yesterday)}`
+      )
+      .pipe(catchError(checkErrorCode));
   }
 }

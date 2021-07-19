@@ -1,4 +1,4 @@
-import {VaccineFormModel} from '../vaccineFormModel';
+import { VaccineFormModel } from '../vaccineFormModel';
 
 import * as VaccineActions from './vaccine.actions';
 

@@ -1,12 +1,12 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
-import {Store} from '@ngrx/store';
-import {TableCountry} from '../data/data.models';
-import {AlertComponent} from '../../../shared/alert/alert.component';
-import {MatDialog} from '@angular/material/dialog';
-import {Subscription} from 'rxjs';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { Store } from '@ngrx/store';
+import { TableCountry } from '../data/data.models';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 
 import * as FromApp from '../../../core/store/app.reducer';
 import * as ReportingActions from '../store/reporting.actions';
@@ -26,20 +26,17 @@ export class TableComponent implements OnInit, OnDestroy {
   ];
   dataSource: MatTableDataSource<TableCountry> = new MatTableDataSource();
 
-  @ViewChild(MatPaginator, {static: false}) paginator:
+  @ViewChild(MatPaginator, { static: false }) paginator:
     | MatPaginator
     | undefined;
-  @ViewChild(MatSort, {static: false}) sort:
-    | MatSort
-    | undefined;
+  @ViewChild(MatSort, { static: false }) sort: MatSort | undefined;
 
   storeSub: Subscription | null = null;
 
   constructor(
     private store: Store<FromApp.AppState>,
     public dialog: MatDialog
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.store.dispatch(new ReportingActions.FetchReportTable());
@@ -57,9 +54,7 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.store.dispatch(
-      new ReportingActions.DitchReportTable()
-    );
+    this.store.dispatch(new ReportingActions.DitchReportTable());
     this.storeSub?.unsubscribe();
   }
 
@@ -73,7 +68,7 @@ export class TableComponent implements OnInit, OnDestroy {
 
   private showErrorAlert(error: string): void {
     this.dialog.open(AlertComponent, {
-      data: {message: error},
+      data: { message: error },
     });
   }
 }

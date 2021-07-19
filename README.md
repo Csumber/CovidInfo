@@ -16,7 +16,7 @@ Picture full width, info on cards below
 
 ### News
 
-You can find news cards here, each separate article has a page. 
+You can find news cards here, each separate article has a page.
 news card -> separate component
 
 ### Reporting

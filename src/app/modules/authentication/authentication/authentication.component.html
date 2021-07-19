@@ -8,39 +8,68 @@
         <div class="row">
           <div class="col">
             <mat-form-field class="full-width">
-              <input formControlName="email" matInput placeholder="E-mail">
-              <mat-error *ngIf="authenticateForm.controls['email'].hasError('required')">
+              <input formControlName="email" matInput placeholder="E-mail" />
+              <mat-error
+                *ngIf="authenticateForm.controls['email'].hasError('required')"
+              >
                 E-mail is <strong>required</strong>
               </mat-error>
-              <mat-error *ngIf="authenticateForm.controls['email'].hasError('email')">
+              <mat-error
+                *ngIf="authenticateForm.controls['email'].hasError('email')"
+              >
                 Please enter a <strong>valid</strong> email address
               </mat-error>
             </mat-form-field>
           </div>
         </div>
-        <br>
+        <br />
         <div class="row">
           <div class="col">
             <mat-form-field class="full-width">
-              <input formControlName="password" matInput placeholder="Password" type="password">
-              <mat-error *ngIf="authenticateForm.controls['password'].hasError('required')">
+              <input
+                formControlName="password"
+                matInput
+                placeholder="Password"
+                type="password"
+              />
+              <mat-error
+                *ngIf="
+                  authenticateForm.controls['password'].hasError('required')
+                "
+              >
                 Password is <strong>required</strong>
               </mat-error>
-              <mat-error *ngIf="authenticateForm.controls['password'].hasError('minlength')">
-                A password with a <strong>minimal length of {{passwordMinimumLength}}</strong> is required
+              <mat-error
+                *ngIf="
+                  authenticateForm.controls['password'].hasError('minlength')
+                "
+              >
+                A password with a
+                <strong>minimal length of {{ passwordMinimumLength }}</strong>
+                is required
               </mat-error>
             </mat-form-field>
           </div>
         </div>
       </mat-card-content>
       <mat-card-actions>
-        <button (click)="onLogin()" [disabled]="!authenticateForm.valid" color="accent" mat-raised-button
-                type="button">
+        <button
+          (click)="onLogin()"
+          [disabled]="!authenticateForm.valid"
+          color="accent"
+          mat-raised-button
+          type="button"
+        >
           Login
         </button>
         or
-        <button (click)="onSignup()" [disabled]="!authenticateForm.valid" color="accent" mat-raised-button
-                type="button">
+        <button
+          (click)="onSignup()"
+          [disabled]="!authenticateForm.valid"
+          color="accent"
+          mat-raised-button
+          type="button"
+        >
           Signup
         </button>
       </mat-card-actions>

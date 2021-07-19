@@ -1,10 +1,8 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-reporting',
   templateUrl: './reporting.component.html',
-  styleUrls: ['./reporting.component.css']
+  styleUrls: ['./reporting.component.css'],
 })
-export class ReportingComponent {
-
-}
+export class ReportingComponent {}

@@ -1,4 +1,4 @@
-import {Category} from '../question.model';
+import { Category } from '../question.model';
 
 import * as AuthActions from './faq.actions';
 
@@ -20,14 +20,14 @@ export function faqReducer(
     case AuthActions.FETCH_CATEGORIES:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
 
     case AuthActions.SET_CATEGORIES:
       return {
         ...state,
         categories: action.payload,
-        loading: false
+        loading: false,
       };
     default:
       return state;

@@ -1,7 +1,7 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'isNullOrEmpty'
+  name: 'isNullOrEmpty',
 })
 export class IsNullOrEmptyPipe implements PipeTransform {
   transform(value: string | null | undefined, substitute: string): string {

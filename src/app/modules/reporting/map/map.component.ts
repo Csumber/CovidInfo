@@ -1,22 +1,29 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild,} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import OSM from 'ol/source/OSM';
-import {Icon, Style} from 'ol/style';
-import {Tile as TileLayer, Vector as fromLayerVector} from 'ol/layer';
-import Feature, {FeatureLike} from 'ol/Feature';
-import {Point} from 'ol/geom';
+import { Icon, Style } from 'ol/style';
+import { Tile as TileLayer, Vector as fromLayerVector } from 'ol/layer';
+import Feature, { FeatureLike } from 'ol/Feature';
+import { Point } from 'ol/geom';
 import VectorSource from 'ol/source/Vector';
 import IconAnchorUnits from 'ol/style/IconAnchorUnits';
-import {transform} from 'ol/proj';
-import {Overlay} from 'ol';
+import { transform } from 'ol/proj';
+import { Overlay } from 'ol';
 import OverlayPositioning from 'ol/OverlayPositioning';
 import MapBrowserEvent from 'ol/MapBrowserEvent';
-import {Store} from '@ngrx/store';
-import {MatDialog} from '@angular/material/dialog';
-import {MapDataEntry} from '../data/data.models';
-import {AlertComponent} from '../../../shared/alert/alert.component';
-import {Subscription} from 'rxjs';
+import { Store } from '@ngrx/store';
+import { MatDialog } from '@angular/material/dialog';
+import { MapDataEntry } from '../data/data.models';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { Subscription } from 'rxjs';
 
 import * as fromApp from '../../../core/store/app.reducer';
 import * as ReportingActions from '../store/reporting.actions';
@@ -27,7 +34,7 @@ import * as ReportingActions from '../store/reporting.actions';
   styleUrls: ['./map.component.css'],
 })
 export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('popup', {read: ElementRef, static: true}) popupRef:
+  @ViewChild('popup', { read: ElementRef, static: true }) popupRef:
     | ElementRef
     | undefined;
   map: Map = new Map({});
@@ -38,8 +45,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private store: Store<fromApp.AppState>,
     public dialog: MatDialog
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.store.dispatch(new ReportingActions.FetchReportMap());
@@ -48,9 +54,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       view: new View({
         center: new Point(
           // EU coordinates, transformed
-          transform(
-            [15.2551, 54.526],
-            'EPSG:4326', 'EPSG:3857')
+          transform([15.2551, 54.526], 'EPSG:4326', 'EPSG:3857')
         ).getCoordinates(),
         zoom: 4,
       }),
@@ -100,11 +104,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-
   ngOnDestroy(): void {
-    this.store.dispatch(
-      new ReportingActions.DitchReportMap()
-    );
+    this.store.dispatch(new ReportingActions.DitchReportMap());
 
     this.storeSub?.unsubscribe();
   }
@@ -158,7 +159,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private showErrorAlert(error: string): void {
     this.dialog.open(AlertComponent, {
-      data: {message: error},
+      data: { message: error },
     });
   }
 }

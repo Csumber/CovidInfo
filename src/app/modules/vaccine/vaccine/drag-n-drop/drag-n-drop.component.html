@@ -1,19 +1,44 @@
-<div class="root" [ngClass]="{'disabled':disabled}">
+<div class="root" [ngClass]="{ disabled: disabled }">
   <div class="options">
-    <h4>{{optionsName}}</h4>
+    <h4>{{ optionsName }}</h4>
 
-    <div #todoList="cdkDropList" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="doneList"
-         [cdkDropListData]="options" cdkDropList class="list">
-      <div *ngFor="let item of options" [cdkDragDisabled]="disabled" cdkDrag class="list-item">{{item}} </div>
+    <div
+      #todoList="cdkDropList"
+      (cdkDropListDropped)="drop($event)"
+      [cdkDropListConnectedTo]="doneList"
+      [cdkDropListData]="options"
+      cdkDropList
+      class="list"
+    >
+      <div
+        *ngFor="let item of options"
+        [cdkDragDisabled]="disabled"
+        cdkDrag
+        class="list-item"
+      >
+        {{ item }}
+      </div>
     </div>
   </div>
 
   <div class="selected">
-    <h4>{{selectedName}}</h4>
-    <div #doneList="cdkDropList" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="todoList"
-         [cdkDropListData]="selected" cdkDropList class="list">
-      <div *ngFor="let item of selected" [cdkDragDisabled]="disabled" cdkDrag class="list-item">{{item}} </div>
+    <h4>{{ selectedName }}</h4>
+    <div
+      #doneList="cdkDropList"
+      (cdkDropListDropped)="drop($event)"
+      [cdkDropListConnectedTo]="todoList"
+      [cdkDropListData]="selected"
+      cdkDropList
+      class="list"
+    >
+      <div
+        *ngFor="let item of selected"
+        [cdkDragDisabled]="disabled"
+        cdkDrag
+        class="list-item"
+      >
+        {{ item }}
+      </div>
     </div>
   </div>
 </div>
-

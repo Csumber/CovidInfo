@@ -1,10 +1,8 @@
 <app-header>
-  <mat-toolbar-row *ngIf="screenSizeService.isTablet$ | async; else ToolbarMenu">
-    <button
-      (click)="drawer.toggle()"
-      mat-icon-button
-      type="button"
-    >
+  <mat-toolbar-row
+    *ngIf="screenSizeService.isTablet$ | async; else ToolbarMenu"
+  >
+    <button (click)="drawer.toggle()" mat-icon-button type="button">
       <mat-icon>menu</mat-icon>
     </button>
     <span>Covid info - Demo</span>
@@ -18,23 +16,34 @@
           mat-list-item
           routerLink="{{ route.path }}"
           routerLinkActive="active"
-        >{{ route.name }}</a>
+          >{{ route.name }}</a
+        >
       </div>
       <div class="options">
         <button (click)="changeTheme()" mat-icon-button>
-          <mat-icon>{{darkTheme ? 'light_mode' : 'dark_mode' }}</mat-icon>
+          <mat-icon>{{ darkTheme ? "light_mode" : "dark_mode" }}</mat-icon>
         </button>
         <button [matMenuTriggerFor]="options" mat-icon-button>
           <mat-icon>account_circle</mat-icon>
         </button>
         <mat-menu #options="matMenu">
-          <button *ngIf="!isAuthenticated" mat-menu-item
-                  routerLink="/authentication"
-                  routerLinkActive="active">Login
+          <button
+            *ngIf="!isAuthenticated"
+            mat-menu-item
+            routerLink="/authentication"
+            routerLinkActive="active"
+          >
+            Login
           </button>
-          <button (click)="onLogout()" *ngIf="isAuthenticated" mat-menu-item style="cursor: pointer">Logout</button>
+          <button
+            (click)="onLogout()"
+            *ngIf="isAuthenticated"
+            mat-menu-item
+            style="cursor: pointer"
+          >
+            Logout
+          </button>
         </mat-menu>
-
       </div>
     </mat-toolbar-row>
   </ng-template>
@@ -42,7 +51,9 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav
     #drawer
-    [attr.role]="(screenSizeService.isTablet$ | async) ? 'dialog' : 'navigation'"
+    [attr.role]="
+      (screenSizeService.isTablet$ | async) ? 'dialog' : 'navigation'
+    "
     [mode]="(screenSizeService.isTablet$ | async) ? 'over' : 'side'"
     [ngClass]="{ hidden: (screenSizeService.isTablet$ | async) === false }"
     [opened]="(screenSizeService.isTablet$ | async) === false"
@@ -51,14 +62,23 @@
   >
     <mat-toolbar color="primary">Menu</mat-toolbar>
 
-   <div class="sidenavContent">
+    <div class="sidenavContent">
       <mat-nav-list>
         <div class="login">
-          <a *ngIf="!isAuthenticated" mat-list-item
-             routerLink="/authentication"
-             routerLinkActive="active"
-          >Login</a>
-          <a (click)="onLogout()" *ngIf="isAuthenticated" mat-list-item style="cursor: pointer">Logout</a>
+          <a
+            *ngIf="!isAuthenticated"
+            mat-list-item
+            routerLink="/authentication"
+            routerLinkActive="active"
+            >Login</a
+          >
+          <a
+            (click)="onLogout()"
+            *ngIf="isAuthenticated"
+            mat-list-item
+            style="cursor: pointer"
+            >Logout</a
+          >
         </div>
         <mat-divider></mat-divider>
         <a
@@ -66,13 +86,13 @@
           mat-list-item
           routerLink="{{ route.path }}"
           routerLinkActive="active"
-        >{{ route.name }}</a
+          >{{ route.name }}</a
         >
       </mat-nav-list>
       <mat-nav-list>
         <mat-divider></mat-divider>
         <a (click)="changeTheme()" mat-list-item>
-          <mat-icon> {{darkTheme ? 'light_mode' : 'dark_mode' }} </mat-icon>
+          <mat-icon> {{ darkTheme ? "light_mode" : "dark_mode" }} </mat-icon>
         </a>
       </mat-nav-list>
     </div>

@@ -1,10 +1,16 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
-import {Store} from '@ngrx/store';
-import {VaccineFormModel} from '../vaccineFormModel';
-import {Subscription} from 'rxjs';
-import {AlertComponent} from 'src/app/shared/alert/alert.component';
-import {MatDialog} from '@angular/material/dialog';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { VaccineFormModel } from '../vaccineFormModel';
+import { Subscription } from 'rxjs';
+import { AlertComponent } from 'src/app/shared/alert/alert.component';
+import { MatDialog } from '@angular/material/dialog';
 
 import * as FromApp from '../../../core/store/app.reducer';
 import * as VaccineActions from '../store/vaccine.actions';
@@ -15,7 +21,6 @@ import * as VaccineActions from '../store/vaccine.actions';
   styleUrls: ['./vaccine.component.css'],
 })
 export class VaccineComponent implements OnInit, OnDestroy {
-
   public readonly vaccinesMinimumNumber = 3;
 
   public authSub: Subscription | null = null;
@@ -40,9 +45,8 @@ export class VaccineComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<FromApp.AppState>,
-    public dialog: MatDialog,
-  ) {
-  }
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.authSub = this.store.select('auth').subscribe((authData) => {
@@ -78,36 +82,36 @@ export class VaccineComponent implements OnInit, OnDestroy {
     if (this.prefetchedData) {
       this.vaccineForm = new FormGroup({
         name: new FormControl(
-          {value: this.prefetchedData.name, disabled: true},
+          { value: this.prefetchedData.name, disabled: true },
           []
         ),
         gender: new FormControl(
-          {value: this.prefetchedData.gender, disabled: true},
+          { value: this.prefetchedData.gender, disabled: true },
           []
         ),
         birthday: new FormControl(
-          {value: this.prefetchedData.birthday, disabled: true},
+          { value: this.prefetchedData.birthday, disabled: true },
           []
         ),
-        email: new FormControl({value: this.email, disabled: true}, []),
+        email: new FormControl({ value: this.email, disabled: true }, []),
         phone: new FormControl(
-          {value: this.prefetchedData.phone, disabled: true},
+          { value: this.prefetchedData.phone, disabled: true },
           []
         ),
         socialSecurityNumber: new FormControl(
-          {value: this.prefetchedData.socialSecurityNumber, disabled: true},
+          { value: this.prefetchedData.socialSecurityNumber, disabled: true },
           []
         ),
         symptoms: new FormControl(
-          {value: this.prefetchedData.symptoms, disabled: true},
+          { value: this.prefetchedData.symptoms, disabled: true },
           []
         ),
         vaccines: new FormControl(
-          {value: this.prefetchedData.vaccines, disabled: true},
+          { value: this.prefetchedData.vaccines, disabled: true },
           []
         ),
         terms: new FormControl(
-          {value: this.prefetchedData.terms, disabled: true},
+          { value: this.prefetchedData.terms, disabled: true },
           []
         ),
       });
@@ -119,7 +123,7 @@ export class VaccineComponent implements OnInit, OnDestroy {
       name: new FormControl(null, [Validators.required]),
       gender: new FormControl(null, [Validators.required]),
       birthday: new FormControl(null, [Validators.required]),
-      email: new FormControl({value: this.email, disabled: !!this.email}, [
+      email: new FormControl({ value: this.email, disabled: !!this.email }, [
         Validators.required,
         Validators.email,
       ]),
@@ -159,13 +163,12 @@ export class VaccineComponent implements OnInit, OnDestroy {
       this.vaccineForm.value.socialSecurityNumber,
       this.vaccineForm.value.symptoms,
       this.vaccineForm.value.terms,
-      this.vaccineForm.value.vaccines,
+      this.vaccineForm.value.vaccines
     );
 
     this.store.dispatch(new VaccineActions.StoreVaccineForm(vaccineFormModel));
     this.store.dispatch(new VaccineActions.FetchVaccineForm(this.uid));
     this.store.dispatch(new VaccineActions.SetVaccineForm(vaccineFormModel));
-
   }
 
   onDelete(): void {
@@ -174,7 +177,7 @@ export class VaccineComponent implements OnInit, OnDestroy {
 
   private showErrorAlert(): void {
     this.dialog.open(AlertComponent, {
-      data: {message: 'Unfortunately we could not submit your form.'},
+      data: { message: 'Unfortunately we could not submit your form.' },
     });
   }
 }

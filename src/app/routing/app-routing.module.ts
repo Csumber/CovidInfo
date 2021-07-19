@@ -1,8 +1,8 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: 'home',
     loadChildren: () =>
@@ -11,7 +11,9 @@ const routes: Routes = [
   {
     path: 'authentication',
     loadChildren: () =>
-      import('../modules/authentication/authentication.module').then((module) => module.AuthenticationModule),
+      import('../modules/authentication/authentication.module').then(
+        (module) => module.AuthenticationModule
+      ),
   },
   {
     path: 'news',
@@ -40,7 +42,9 @@ const routes: Routes = [
   {
     path: 'licensing',
     loadChildren: () =>
-      import('../modules/licensing/licensing.module').then((module) => module.LicensingModule),
+      import('../modules/licensing/licensing.module').then(
+        (module) => module.LicensingModule
+      ),
   },
 ];
 
@@ -48,5 +52,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}

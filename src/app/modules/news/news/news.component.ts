@@ -1,9 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from 'rxjs';
-import {ScreenSizeService} from '../../../shared/screen-size.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ScreenSizeService } from '../../../shared/screen-size.service';
 
-import {Store} from '@ngrx/store';
-import {Article} from '../article.model';
+import { Store } from '@ngrx/store';
+import { Article } from '../article.model';
 
 import * as NewsActions from '../store/news.actions';
 import * as fromApp from '../../../core/store/app.reducer';
@@ -18,8 +18,10 @@ export class NewsComponent implements OnInit, OnDestroy {
   storeSub: Subscription | null = null;
   articles: Article[] = [];
 
-  constructor(public screenSizeService: ScreenSizeService, private store: Store<fromApp.AppState>) {
-  }
+  constructor(
+    public screenSizeService: ScreenSizeService,
+    private store: Store<fromApp.AppState>
+  ) {}
 
   ngOnInit(): void {
     this.store.dispatch(new NewsActions.FetchArticles());

@@ -1,5 +1,5 @@
 import * as AuthActions from './news.actions';
-import {Article} from '../article.model';
+import { Article } from '../article.model';
 
 export interface State {
   articles: Article[] | null;
@@ -19,14 +19,14 @@ export function newsReducer(
     case AuthActions.FETCH_ARTICLES:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
 
     case AuthActions.SET_ARTICLES:
       return {
         ...state,
         articles: action.payload,
-        loading: false
+        loading: false,
       };
     default:
       return state;

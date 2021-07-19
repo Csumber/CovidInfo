@@ -1,14 +1,20 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ChartLine} from '../data/data.models';
-import {countries, Country} from '../data/countries';
-import {AbstractControl, FormControl, FormGroup, ValidationErrors, Validators,} from '@angular/forms';
-import {Store} from '@ngrx/store';
-import {AlertComponent} from '../../../shared/alert/alert.component';
-import {MatDialog} from '@angular/material/dialog';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChartLine } from '../data/data.models';
+import { countries, Country } from '../data/countries';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { MatDialog } from '@angular/material/dialog';
 
 import * as fromApp from '../../../core/store/app.reducer';
 import * as ReportingActions from '../store/reporting.actions';
-import {Subscription} from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-chart',
@@ -37,8 +43,7 @@ export class ChartComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<fromApp.AppState>,
     public dialog: MatDialog
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -61,13 +66,10 @@ export class ChartComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.store.dispatch(
-      new ReportingActions.DitchReportChart()
-    );
+    this.store.dispatch(new ReportingActions.DitchReportChart());
     this.storeSub?.unsubscribe();
     this.intervalSub?.unsubscribe();
     this.changesSub?.unsubscribe();
-
   }
 
   initForm(): void {
@@ -95,7 +97,9 @@ export class ChartComponent implements OnInit, OnDestroy {
       }),
     });
 
-    this.intervalSub = this.queryForm.controls['interval'].valueChanges.subscribe((next) => {
+    this.intervalSub = this.queryForm.controls[
+      'interval'
+    ].valueChanges.subscribe((next) => {
       if (next !== 'custom') {
         const newToDate = new Date(currentDate.valueOf() - 1000 * 60 * 60 * 24);
         const newFromDate = new Date(
@@ -133,7 +137,7 @@ export class ChartComponent implements OnInit, OnDestroy {
 
   private showErrorAlert(error: string): void {
     this.dialog.open(AlertComponent, {
-      data: {message: error},
+      data: { message: error },
     });
   }
 }

@@ -1,5 +1,3 @@
-import {AppError} from './app-error';
+import { AppError } from './app-error';
 
-export class NoDataAvailableError extends AppError {
-
-}
+export class NoDataAvailableError extends AppError {}

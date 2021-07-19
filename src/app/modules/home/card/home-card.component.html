@@ -1,13 +1,16 @@
-<mat-card class="card-body" routerLink="{{data.routerPath}}">
+<mat-card class="card-body" routerLink="{{ data.routerPath }}">
   <div class="img-frame">
     <div class="img">
-      <img alt="Visual representation of card content" src="{{data.imagePath}}">
+      <img
+        alt="Visual representation of card content"
+        src="{{ data.imagePath }}"
+      />
     </div>
   </div>
-  <br>
+  <br />
   <mat-card-content>
     <p>
-      {{data.description }}
+      {{ data.description }}
       <mat-icon color="accent">arrow_forward_ios</mat-icon>
     </p>
   </mat-card-content>

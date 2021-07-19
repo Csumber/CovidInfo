@@ -1,10 +1,10 @@
-import {ChartLine, MapDataEntry, TableCountry} from '../data/data.models';
+import { ChartLine, MapDataEntry, TableCountry } from '../data/data.models';
 
 import * as ReportingActions from './reporting.actions';
-import {FetchDataError} from '../../../shared/errors/fetch-data-error';
-import {NoDataAvailableError} from '../../../shared/errors/no-data-available-error';
-import {BadRequestError} from '../../../shared/errors/bad-request-error';
-import {NotFoundError} from '../../../shared/errors/not-found-error';
+import { FetchDataError } from '../../../shared/errors/fetch-data-error';
+import { NoDataAvailableError } from '../../../shared/errors/no-data-available-error';
+import { BadRequestError } from '../../../shared/errors/bad-request-error';
+import { NotFoundError } from '../../../shared/errors/not-found-error';
 
 export interface State {
   dataChart: ChartLine[];

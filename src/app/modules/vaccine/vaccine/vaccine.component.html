@@ -2,8 +2,12 @@
   <mat-card>
     <mat-card-header>
       <mat-card-title>Vaccine registration</mat-card-title>
-      <mat-card-subtitle *ngIf="!prefetchedData">Please complete every field</mat-card-subtitle>
-      <mat-card-subtitle *ngIf="!!prefetchedData">You have already filled out this form</mat-card-subtitle>
+      <mat-card-subtitle *ngIf="!prefetchedData"
+        >Please complete every field</mat-card-subtitle
+      >
+      <mat-card-subtitle *ngIf="!!prefetchedData"
+        >You have already filled out this form</mat-card-subtitle
+      >
     </mat-card-header>
 
     <mat-card-content>
@@ -14,22 +18,35 @@
             <mat-form-field class="full-width">
               <mat-label>Name</mat-label>
               <label>
-                <input formControlName="name" matInput placeholder="Your beautiful name" type="text">
+                <input
+                  formControlName="name"
+                  matInput
+                  placeholder="Your beautiful name"
+                  type="text"
+                />
               </label>
               <mat-icon matSuffix>face</mat-icon>
-              <mat-error *ngIf="vaccineForm.controls['name'].hasError('required')">
+              <mat-error
+                *ngIf="vaccineForm.controls['name'].hasError('required')"
+              >
                 You need to enter your name
               </mat-error>
             </mat-form-field>
           </div>
           <div class="col">
             <mat-form-field class="full-width">
-              <mat-select [disabled]="!!prefetchedData" formControlName="gender" placeholder="Gender">
+              <mat-select
+                [disabled]="!!prefetchedData"
+                formControlName="gender"
+                placeholder="Gender"
+              >
                 <mat-option value="male">Male</mat-option>
                 <mat-option value="female">Female</mat-option>
                 <mat-option value="non-binary">Non binary</mat-option>
               </mat-select>
-              <mat-error *ngIf="vaccineForm.controls['name'].hasError('required')">
+              <mat-error
+                *ngIf="vaccineForm.controls['name'].hasError('required')"
+              >
                 You need to select a gender
               </mat-error>
             </mat-form-field>
@@ -41,14 +58,25 @@
             <mat-form-field class="full-width">
               <mat-label>E-mail</mat-label>
               <label>
-                <input formControlName="email" matInput placeholder="you@email.com" type="text">
+                <input
+                  formControlName="email"
+                  matInput
+                  placeholder="you@email.com"
+                  type="text"
+                />
               </label>
               <mat-icon matSuffix>email</mat-icon>
-              <mat-error *ngIf="vaccineForm.controls['email'].hasError('required')">
+              <mat-error
+                *ngIf="vaccineForm.controls['email'].hasError('required')"
+              >
                 You need to enter an email address
               </mat-error>
-              <mat-hint *ngIf="!prefetchedData"> Your e-mail address is fetched from your user data</mat-hint>
-              <mat-error *ngIf="vaccineForm.controls['email'].hasError('email')">
+              <mat-hint *ngIf="!prefetchedData">
+                Your e-mail address is fetched from your user data</mat-hint
+              >
+              <mat-error
+                *ngIf="vaccineForm.controls['email'].hasError('email')"
+              >
                 You need to enter a <strong>valid</strong> email address
               </mat-error>
             </mat-form-field>
@@ -57,15 +85,28 @@
             <mat-form-field class="full-width">
               <mat-label>Telephone</mat-label>
               <label>
-                <input formControlName="phone" matInput placeholder="+36-20/123-45-67" type="tel">
+                <input
+                  formControlName="phone"
+                  matInput
+                  placeholder="+36-20/123-45-67"
+                  type="tel"
+                />
               </label>
               <mat-icon matSuffix>phone</mat-icon>
-              <mat-error *ngIf="vaccineForm.controls['phone'].hasError('required')">
+              <mat-error
+                *ngIf="vaccineForm.controls['phone'].hasError('required')"
+              >
                 You need to enter a phone number
               </mat-error>
               <mat-error
-                *ngIf="vaccineForm.controls['phone'].hasError('pattern') || vaccineForm.controls['phone'].hasError('minlength')|| vaccineForm.controls['phone'].hasError('maxlength')">
-                You need to enter a <strong>valid</strong> pprefetchedDatahone number
+                *ngIf="
+                  vaccineForm.controls['phone'].hasError('pattern') ||
+                  vaccineForm.controls['phone'].hasError('minlength') ||
+                  vaccineForm.controls['phone'].hasError('maxlength')
+                "
+              >
+                You need to enter a <strong>valid</strong> pprefetchedDatahone
+                number
               </mat-error>
             </mat-form-field>
           </div>
@@ -76,23 +117,39 @@
             <mat-form-field class="full-width">
               <mat-label>Social Security Number</mat-label>
               <label>
-                <input formControlName="socialSecurityNumber" matInput placeholder="111-222-333" type="text">
+                <input
+                  formControlName="socialSecurityNumber"
+                  matInput
+                  placeholder="111-222-333"
+                  type="text"
+                />
               </label>
               <mat-icon matSuffix>medical_services</mat-icon>
-              <mat-error *ngIf="vaccineForm.controls['socialSecurityNumber'].hasError('required')">
+              <mat-error
+                *ngIf="
+                  vaccineForm.controls['socialSecurityNumber'].hasError(
+                    'required'
+                  )
+                "
+              >
                 You need to enter your social security number
               </mat-error>
             </mat-form-field>
           </div>
           <div class="col">
             <mat-form-field class="full-width">
-              <mat-select [disabled]="!!prefetchedData" formControlName="symptoms"
-                          placeholder="Have you shown any symptoms in the past 6 months?">
+              <mat-select
+                [disabled]="!!prefetchedData"
+                formControlName="symptoms"
+                placeholder="Have you shown any symptoms in the past 6 months?"
+              >
                 <mat-option value="yes">Yes</mat-option>
                 <mat-option value="no">No</mat-option>
                 <mat-option value="unsure">I don't know</mat-option>
               </mat-select>
-              <mat-error *ngIf="vaccineForm.controls['symptoms'].hasError('required')">
+              <mat-error
+                *ngIf="vaccineForm.controls['symptoms'].hasError('required')"
+              >
                 You need to select an answer
               </mat-error>
             </mat-form-field>
@@ -104,12 +161,28 @@
             <mat-form-field class="full-width">
               <mat-label>Date of birth</mat-label>
               <label>
-                <input [matDatepicker]="dp" formControlName="birthday" matInput placeholder="7/20/1969" type="text">
+                <input
+                  [matDatepicker]="dp"
+                  formControlName="birthday"
+                  matInput
+                  placeholder="7/20/1969"
+                  type="text"
+                />
               </label>
-              <mat-datepicker-toggle [for]="dp" matSuffix></mat-datepicker-toggle>
-              <mat-datepicker #dp [disabled]="!!prefetchedData"></mat-datepicker>
+              <mat-datepicker-toggle
+                [for]="dp"
+                matSuffix
+              ></mat-datepicker-toggle>
+              <mat-datepicker
+                #dp
+                [disabled]="!!prefetchedData"
+              ></mat-datepicker>
               <mat-error
-                *ngIf="vaccineForm.controls['birthday'].touched &&vaccineForm.controls['birthday'].hasError('required')">
+                *ngIf="
+                  vaccineForm.controls['birthday'].touched &&
+                  vaccineForm.controls['birthday'].hasError('required')
+                "
+              >
                 Please enter your date of birth
               </mat-error>
             </mat-form-field>
@@ -130,8 +203,16 @@
                 selectedName="Selected Vaccines"
               ></app-drag-n-drop>
               <mat-error
-                *ngIf="vaccineForm.controls['vaccines'].touched &&vaccineForm.controls['vaccines'].hasError('tooFewVaccinesError')">
-                Please select <strong>at least {{vaccinesMinimumNumber}}</strong> type(s) of vaccine
+                *ngIf="
+                  vaccineForm.controls['vaccines'].touched &&
+                  vaccineForm.controls['vaccines'].hasError(
+                    'tooFewVaccinesError'
+                  )
+                "
+              >
+                Please select
+                <strong>at least {{ vaccinesMinimumNumber }}</strong> type(s) of
+                vaccine
               </mat-error>
             </mat-form-field>
           </div>
@@ -139,7 +220,11 @@
 
         <div class="row">
           <div class="col">
-            <mat-checkbox [disabled]="!!prefetchedData" class="terms" formControlName="terms">
+            <mat-checkbox
+              [disabled]="!!prefetchedData"
+              class="terms"
+              formControlName="terms"
+            >
               I accept the <strong>terms and conditions</strong>
             </mat-checkbox>
           </div>
@@ -169,4 +254,3 @@
     </mat-card-actions>
   </mat-card>
 </div>
-

@@ -1,7 +1,7 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {NewsComponent} from './news/news.component';
-import {ArticleComponent} from './article/article.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { NewsComponent } from './news/news.component';
+import { ArticleComponent } from './article/article.component';
 
 const routes: Routes = [
   {
@@ -11,10 +11,9 @@ const routes: Routes = [
   },
   {
     path: ':title',
-    component: ArticleComponent
-  }
+    component: ArticleComponent,
+  },
 ];
 
-@NgModule({imports: [RouterModule.forChild(routes)], exports: [RouterModule]})
-export class NewsRoutingModule {
-}
+@NgModule({ imports: [RouterModule.forChild(routes)], exports: [RouterModule] })
+export class NewsRoutingModule {}

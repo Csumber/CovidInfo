@@ -1,4 +1,4 @@
-import {User} from '../user.model';
+import { User } from '../user.model';
 import * as AuthActions from './auth.actions';
 
 export interface State {
@@ -23,7 +23,7 @@ export function authReducer(
       return {
         ...state,
         authError: null,
-        loading: true
+        loading: true,
       };
 
     case AuthActions.AUTHENTICATE_SUCCESS:
@@ -37,7 +37,7 @@ export function authReducer(
         ...state,
         user,
         authError: null,
-        loading: false
+        loading: false,
       };
 
     case AuthActions.AUTHENTICATE_FAIL:
@@ -45,20 +45,20 @@ export function authReducer(
         ...state,
         user: null,
         authError: action.payload,
-        loading: false
+        loading: false,
       };
 
     case AuthActions.CLEAR_ERROR:
       return {
         ...state,
-        authError: null
+        authError: null,
       };
 
     case AuthActions.LOGOUT:
       return {
         ...state,
         user: null,
-        authError: null
+        authError: null,
       };
 
     default:

@@ -6,28 +6,26 @@
 
     <mat-card-content>
       <mat-list role="list">
-
         <div mat-subheader>Images</div>
         <mat-list-item *ngFor="let imageItem of images" role="listitem">
-          <mat-icon mat-list-icon>{{imageItem.type}}</mat-icon>
-          <div mat-line>{{imageItem.name}}</div>
+          <mat-icon mat-list-icon>{{ imageItem.type }}</mat-icon>
+          <div mat-line>{{ imageItem.name }}</div>
           <div [innerHTML]="imageItem.source" mat-line></div>
         </mat-list-item>
         <mat-divider></mat-divider>
         <div mat-subheader>Data</div>
         <mat-list-item *ngFor="let dataItem of data" role="listitem">
-          <mat-icon mat-list-icon>{{dataItem.type}}</mat-icon>
-          <div mat-line>{{dataItem.name}}</div>
+          <mat-icon mat-list-icon>{{ dataItem.type }}</mat-icon>
+          <div mat-line>{{ dataItem.name }}</div>
           <div [innerHTML]="dataItem.source" mat-line></div>
         </mat-list-item>
         <mat-divider></mat-divider>
         <div mat-subheader>Other</div>
         <mat-list-item *ngFor="let otherItem of other" role="listitem">
-          <mat-icon mat-list-icon>{{otherItem.type}}</mat-icon>
-          <div mat-line>{{otherItem.name}}</div>
+          <mat-icon mat-list-icon>{{ otherItem.type }}</mat-icon>
+          <div mat-line>{{ otherItem.name }}</div>
           <div [innerHTML]="otherItem.source" mat-line></div>
         </mat-list-item>
-
       </mat-list>
     </mat-card-content>
   </mat-card>

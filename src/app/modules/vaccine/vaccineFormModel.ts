@@ -9,7 +9,6 @@ export class VaccineFormModel {
     public socialSecurityNumber: string,
     public symptoms: string,
     public terms: boolean,
-    public vaccines: string[],
-  ) {
-  }
+    public vaccines: string[]
+  ) {}
 }

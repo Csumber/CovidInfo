@@ -9,9 +9,9 @@
               <mat-optgroup label="Countries">
                 <mat-option
                   *ngFor="let country of countries"
-                  value="{{country.Slug}}"
+                  value="{{ country.Slug }}"
                 >
-                  {{country.Country}}
+                  {{ country.Country }}
                 </mat-option>
               </mat-optgroup>
             </mat-select>
@@ -35,15 +35,24 @@
           <mat-form-field>
             <mat-label>Enter a date range</mat-label>
             <mat-date-range-input [rangePicker]="picker" formGroupName="range">
-              <input formControlName="from" matStartDate placeholder="From">
-              <input formControlName="to" matEndDate placeholder="To">
+              <input formControlName="from" matStartDate placeholder="From" />
+              <input formControlName="to" matEndDate placeholder="To" />
             </mat-date-range-input>
-            <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+            <mat-datepicker-toggle
+              [for]="picker"
+              matSuffix
+            ></mat-datepicker-toggle>
             <mat-date-range-picker #picker></mat-date-range-picker>
-            <mat-error *ngIf="queryForm.get('range.from')?.hasError('tooLittleDateError')">
+            <mat-error
+              *ngIf="
+                queryForm.get('range.from')?.hasError('tooLittleDateError')
+              "
+            >
               Your starting date is too small
             </mat-error>
-            <mat-error *ngIf="queryForm.get('range.to')?.hasError('tooLargeDateError')">
+            <mat-error
+              *ngIf="queryForm.get('range.to')?.hasError('tooLargeDateError')"
+            >
               Your ending date is too large
             </mat-error>
           </mat-form-field>
@@ -67,5 +76,4 @@
     >
     </ngx-charts-line-chart>
   </div>
-
 </div>

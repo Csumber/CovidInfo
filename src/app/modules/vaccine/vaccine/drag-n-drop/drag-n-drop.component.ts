@@ -1,23 +1,47 @@
-import {Component, ElementRef, forwardRef, Inject, Input, OnDestroy, Optional, Self,} from '@angular/core';
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import {AbstractControl, ControlValueAccessor, NgControl, ValidationErrors,} from '@angular/forms';
-import {coerceBooleanProperty} from '@angular/cdk/coercion';
-import {MAT_FORM_FIELD, MatFormField, MatFormFieldControl} from '@angular/material/form-field';
-import {Subject} from 'rxjs';
-import {FocusMonitor} from '@angular/cdk/a11y';
+import {
+  Component,
+  ElementRef,
+  forwardRef,
+  Inject,
+  Input,
+  OnDestroy,
+  Optional,
+  Self,
+} from '@angular/core';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  NgControl,
+  ValidationErrors,
+} from '@angular/forms';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import {
+  MAT_FORM_FIELD,
+  MatFormField,
+  MatFormFieldControl,
+} from '@angular/material/form-field';
+import { Subject } from 'rxjs';
+import { FocusMonitor } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-drag-n-drop',
   templateUrl: './drag-n-drop.component.html',
   styleUrls: ['./drag-n-drop.component.css'],
-  providers: [{
-    provide: MatFormFieldControl,
-    useExisting: forwardRef(() => DragNDropComponent),
-  }
+  providers: [
+    {
+      provide: MatFormFieldControl,
+      useExisting: forwardRef(() => DragNDropComponent),
+    },
   ],
 })
-export class DragNDropComponent implements ControlValueAccessor, MatFormFieldControl<string[]>, OnDestroy {
-
+export class DragNDropComponent
+  implements ControlValueAccessor, MatFormFieldControl<string[]>, OnDestroy
+{
   static nextId = 0;
   stateChanges = new Subject<void>();
   focused = false;
@@ -37,10 +61,9 @@ export class DragNDropComponent implements ControlValueAccessor, MatFormFieldCon
     @Optional() @Inject(MAT_FORM_FIELD) public theFormField: MatFormField,
     @Optional() @Self() public ngControl: NgControl
   ) {
-
     this.selected = [];
 
-    theFocusMonitor.monitor(theElementRef, true).subscribe(origin => {
+    theFocusMonitor.monitor(theElementRef, true).subscribe((origin) => {
       if (this.focused && !origin) {
         this.onTouched();
       }
@@ -110,11 +133,9 @@ export class DragNDropComponent implements ControlValueAccessor, MatFormFieldCon
     return !!this.selected;
   }
 
-  onChange = (_: any) => {
-  };
+  onChange = (_: any) => {};
 
-  onTouched = () => {
-  };
+  onTouched = () => {};
 
   ngOnDestroy(): void {
     this.stateChanges.complete();
@@ -122,7 +143,9 @@ export class DragNDropComponent implements ControlValueAccessor, MatFormFieldCon
   }
 
   setDescribedByIds(ids: string[]): void {
-    const controlElement = this.theElementRef.nativeElement.querySelector('.example-tel-input-container');
+    const controlElement = this.theElementRef.nativeElement.querySelector(
+      '.example-tel-input-container'
+    );
     controlElement?.setAttribute('aria-describedby', ids.join(' '));
   }
 
@@ -133,7 +156,7 @@ export class DragNDropComponent implements ControlValueAccessor, MatFormFieldCon
   writeValue(tel: string[] | null): void {
     if (tel) {
       for (const s of tel) {
-        this.options = this.options.filter(obj => obj !== s);
+        this.options = this.options.filter((obj) => obj !== s);
       }
     }
     this.value = tel;
@@ -155,12 +178,18 @@ export class DragNDropComponent implements ControlValueAccessor, MatFormFieldCon
 
   drop(event: CdkDragDrop<string[]>): void {
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(event.previousContainer.data,
+      moveItemInArray(
         event.container.data,
         event.previousIndex,
-        event.currentIndex);
+        event.currentIndex
+      );
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
     }
     this.onChange(this.selected);
     this.onTouched();
