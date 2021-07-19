@@ -1,10 +1,6 @@
-# atorok Demo Project
-
-This is a demo project. It was created so I could enhance my angular skills, and present a project as evidence of my kowledge.
+# Ambrus Török Demo Project
 
 ## Structure
-
-You can navigate using the navbar, or the hamburger menu when you are in mobile view. You can register and log in. This stores your data, and enable to use the site itself. Authentication is provided by Firebase.
 
 ### Home
 
@@ -17,7 +13,6 @@ Picture full width, info on cards below
 ### News
 
 You can find news cards here, each separate article has a page.
-news card -> separate component
 
 ### Reporting
 
@@ -29,9 +24,7 @@ This is where you can fill out a form, to register to be vaccinated (not for rea
 
 ### FAQ
 
-embedded expansion panel with categories
-
-Tree on the left side, questions listed on the right side. Click on a question, and the answer is revealed using an expansion panel.
+Expansion panel with categories.
 
 ### Licensing
 
@@ -39,15 +32,4 @@ This site is going to contain all the third party resources with MIT license.
 
 ## Usage
 
-`// ...`
-
-# Licensing:
-
-- Coronavirus Data source: [https://covid19.mathdro.id/api](https://covid19.mathdro.id/api)
-- News source: [https://newsapi.org/register/success](https://newsapi.org/register/success)
-- Browser icon (favicon): [https://www.flaticon.com/free-icon/virus_108659](https://www.flaticon.com/free-icon/virus_108659)
-- Background(s): [https://www.freepik.com/tirachardz](https://www.freepik.com/tirachardz)
-- News picture: [http://freepik.com/onlyyouqj](http://freepik.com/onlyyouqj)
-- Data picture: [http://freepik.com/onlyyouqj](http://freepik.com/onlyyouqj)
-- Vaccine picture: [http://freepik.com/freepik](http://freepik.com/freepik)
-- News image placeholder: [https://www.freepik.com/vectorjuice](https://www.freepik.com/vectorjuice)
+After pulling, run `npm install`, and then `ng serve`
