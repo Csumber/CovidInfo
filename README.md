@@ -33,3 +33,35 @@ This site is going to contain all the third party resources with MIT license.
 ## Usage
 
 After pulling, run `npm install`, and then `ng serve`
+
+You also need to set up an environment.ts file.
+```
+export const environment = {
+  production: false,
+  firebase: {
+    apiKey: '...',
+    authDomain: '...',
+    databaseURL: '.',
+    projectId: '....',
+    storageBucket: '...',
+    messagingSenderId: '...',
+  },
+  firebaseAPIKey: '...',
+  postFirebaseSignupURL:
+    'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=',
+  postFirebaseSignInURL:
+    'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=',
+  firebaseFaqURL:
+    '...',
+  firebaseVaccineURL:
+    '...',
+  newsAPIURL:
+    'https://newsapi.org/v2/top-headlines?country=hu&category=health&apiKey=',
+  newsAPIKey: '...',
+  CovidAPIURL: 'https://api.covid19api.com',
+  CovidAPIURLMAPDAILY: 'https://covid19.mathdro.id/api/daily',
+  GoogleMapsAPIKey: '...',
+  mapboxAPIKey:
+    '...',
+};
+```
